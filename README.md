@@ -17,3 +17,5 @@ Replace `0123456789abcdef0123456789abcdef` with your actual API key. The Movie D
 [Android Working with Retrofit HTTP Library](https://www.androidhive.info/2016/05/android-working-with-retrofit-http-library/)
 
 [GitHub: Hiding (secret) API keys – Tutorial](https://richardroseblog.wordpress.com/2016/05/29/hiding-secret-api-keys-from-git/)
+
+[RecyclerView with GridLayoutManager Android Tutorial with Example](https://www.thecodecity.com/2017/04/reyclerView-gridlayoutmanager-android-example.html)
