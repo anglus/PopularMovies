@@ -45,7 +45,7 @@ public class MovieResponse {
         return totalPages;
     }
 
-    public String getResults() {
-        return results.toString();
+    public List<Movie> getResults() {
+        return results;
     }
 }
