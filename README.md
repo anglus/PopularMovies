@@ -19,3 +19,7 @@ Replace `0123456789abcdef0123456789abcdef` with your actual API key. The Movie D
 [GitHub: Hiding (secret) API keys – Tutorial](https://richardroseblog.wordpress.com/2016/05/29/hiding-secret-api-keys-from-git/)
 
 [RecyclerView with GridLayoutManager Android Tutorial with Example](https://www.thecodecity.com/2017/04/reyclerView-gridlayoutmanager-android-example.html)
+
+[Spinners | Android Devlopers](https://developer.android.com/guide/topics/ui/controls/spinner)
+
+[How to Add Spinner (Dropdown List) to Android ActionBar/Toolbar](https://www.viralandroid.com/2016/03/how-to-add-spinner-dropdown-list-to-android-actionbar-toolbar.html)
