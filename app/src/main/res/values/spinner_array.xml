@@ -3,6 +3,5 @@
     <string-array name="spinner_array">
         <item>Popular</item>
         <item>Top Rated</item>
-        <!-- <item>Solo</item> -->
     </string-array>
 </resources>
