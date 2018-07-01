@@ -123,9 +123,6 @@ public class Movie {
 
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds.addAll(genreIds);
-        //for (Integer genreId : genreIds) {
-        //    this.genreIds.add(genreId);
-        //}
     }
 
     public void setBackdropPath(String backdropPath) {

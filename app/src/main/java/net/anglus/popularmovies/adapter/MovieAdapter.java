@@ -1,17 +1,17 @@
 package net.anglus.popularmovies.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.util.Log;
-import android.widget.Toast;
 
 import net.anglus.popularmovies.BuildConfig;
 import net.anglus.popularmovies.R;
-import net.anglus.popularmovies.activity.MainActivity;
+import net.anglus.popularmovies.activity.MovieActivity;
 import net.anglus.popularmovies.rest.MovieClient;
 import net.anglus.popularmovies.rest.MovieService;
 import net.anglus.popularmovies.model.MovieResponse;
@@ -23,17 +23,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//import static net.anglus.popularmovies.activity.MainActivity.menuItem;
-
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private static final String TAG = MovieAdapter.class.getSimpleName();
     private static final String API_KEY = BuildConfig.API_KEY;
+    public static int clickedMovie;
 
     private int numberItems;
     private int menuItem;
-    //private List<Movie> movieList;
-    //private TextView movieItemView;
 
     public MovieAdapter(int numberItems, int menuItem) {
         this.numberItems = numberItems;
@@ -63,14 +60,33 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return numberItems;
     }
 
+    public int getClickedMovie() {
+        return clickedMovie;
+    }
+
     class MovieViewHolder extends RecyclerView.ViewHolder {
         TextView movieItemView;
         List<Movie> movieList;
 
-        public MovieViewHolder(View itemView) {
+        public MovieViewHolder(final View itemView) {
             super(itemView);
 
             movieItemView = (TextView) itemView.findViewById(R.id.tv_movie);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int clickedPosition = getAdapterPosition();
+                    clickedMovie = movieList.get(clickedPosition).getId();
+                    Log.d(TAG, "Clicked position: " + clickedPosition);
+                    Log.d(TAG, "Movie ID: " + clickedMovie);
+
+                    Context context = itemView.getContext();
+                    Intent startMovieActivity = new Intent(context, MovieActivity.class);
+                    context.startActivity(startMovieActivity);
+
+                }
+            });
         }
 
         void bind (final int movieIndex) {
@@ -78,29 +94,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             Call<MovieResponse> call;
 
-            /*
-            switch (menuItem) {
-                case 0:
-                    call = service.getMoviesByPopularity(API_KEY);
-                    break;
-                case 1:
-                    call = service.getMoviesByRating(API_KEY);
-                    break;
-                //case 2:
-                    //call = service.getMovie(348350, API_KEY);
-                    //break;
-                default:
-                    call = service.getMoviesByPopularity(API_KEY);
-                    break;
-            }
-            */
-
             if (menuItem == 0) {
                 call = service.getMoviesByPopularity(API_KEY);
             } else {
                 call = service.getMoviesByRating(API_KEY);
             }
-            
+
             if (call != null) {
                 call.enqueue(new Callback<MovieResponse>() {
                     @Override
@@ -113,7 +112,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
                     @Override
                     public void onFailure(Call<MovieResponse> call, Throwable t) {
-                        //Toast.makeText(MainActivity, "Failure", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, t.toString());
                     }
                 });

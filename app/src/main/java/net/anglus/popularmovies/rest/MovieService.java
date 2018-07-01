@@ -4,6 +4,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+
+import net.anglus.popularmovies.model.Movie;
 import net.anglus.popularmovies.model.MovieResponse;
 
 public interface MovieService {
@@ -14,5 +16,5 @@ public interface MovieService {
     Call<MovieResponse> getMoviesByRating(@Query("api_key") String apiKey);
 
     @GET("{id}")
-    Call<MovieResponse> getMovie(@Path("id") int id, @Query("api_key") String apiKey);
+    Call<Movie> getMovie(@Path("id") int id, @Query("api_key") String apiKey);
 }
