@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.util.Log;
+
+import com.squareup.picasso.Picasso;
 
 import net.anglus.popularmovies.BuildConfig;
 import net.anglus.popularmovies.R;
@@ -65,13 +67,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView movieItemView;
+        ImageView movieItemView;
         List<Movie> movieList;
 
         public MovieViewHolder(final View itemView) {
             super(itemView);
 
-            movieItemView = (TextView) itemView.findViewById(R.id.tv_movie);
+            movieItemView = (ImageView) itemView.findViewById(R.id.iv_movie);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,9 +107,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                     @Override
                     public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                         movieList = response.body().getResults();
-                        String movieId = movieList.get(movieIndex).getId().toString();
-                        String movieItem = movieList.get(movieIndex).toString() + "\n" + movieId;
-                        movieItemView.setText(movieItem);
+                        String poster = "http://image.tmdb.org/t/p/original" + movieList.get(movieIndex).getPosterPath();
+                        Context context = itemView.getContext();
+                        Picasso.with(context).load(poster).into(movieItemView);
                     }
 
                     @Override
