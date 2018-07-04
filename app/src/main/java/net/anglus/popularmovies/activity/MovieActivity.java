@@ -1,9 +1,14 @@
 package net.anglus.popularmovies.activity;
 
+import android.content.Context;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.util.Log;
+
+import com.squareup.picasso.Picasso;
 
 import net.anglus.popularmovies.BuildConfig;
 import net.anglus.popularmovies.R;
@@ -23,6 +28,7 @@ public class MovieActivity extends AppCompatActivity {
     private static final String TAG = MovieActivity.class.getSimpleName();
     private static final String API_KEY = BuildConfig.API_KEY;
     private TextView mMovieDetails;
+    private ImageView mMovieBackdrop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class MovieActivity extends AppCompatActivity {
         setContentView(net.anglus.popularmovies.R.layout.activity_movie);
 
         mMovieDetails = (TextView) findViewById(R.id.tv_movie_details);
+        mMovieBackdrop = (ImageView) findViewById(R.id.iv_movie_backdrop);
 
         MovieService service = MovieClient.getRetrofit().create(MovieService.class);
         Call<Movie> call = service.getMovie(MovieAdapter.clickedMovie, API_KEY);
@@ -37,11 +44,13 @@ public class MovieActivity extends AppCompatActivity {
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
-                String poster = response.body().getPosterPath();
+                String backdrop = "http://image.tmdb.org/t/p/original" + response.body().getBackdropPath();
+                Context context = getApplicationContext();
+                Picasso.with(context).load(backdrop).into(mMovieBackdrop);
 
                 String title = response.body().toString();
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
                 Date date = response.body().getReleaseDate();
                 String releaseDate = dateFormat.format(date);
 
@@ -49,7 +58,7 @@ public class MovieActivity extends AppCompatActivity {
 
                 String overview = response.body().getOverview();
 
-                String details = poster + "\n\n" + title + "\n\n" + releaseDate + "\n\n"
+                String details = "\n\n" + title + "\n\n" + releaseDate + "\n\n"
                         + rating + "\n\n" + overview;
                 mMovieDetails.setText(details);
             }
