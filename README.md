@@ -23,3 +23,7 @@ Replace `0123456789abcdef0123456789abcdef` with your actual API key. The Movie D
 [Spinners | Android Devlopers](https://developer.android.com/guide/topics/ui/controls/spinner)
 
 [How to Add Spinner (Dropdown List) to Android ActionBar/Toolbar](https://www.viralandroid.com/2016/03/how-to-add-spinner-dropdown-list-to-android-actionbar-toolbar.html)
+
+[Android Button OnClick Tutorial](https://gist.github.com/Phonbopit/1544ce31b1749380a248)
+
+[Start new Intent from RecyclerViewAdapter](https://stackoverflow.com/questions/28528009/start-new-intent-from-recyclerviewadapter)
