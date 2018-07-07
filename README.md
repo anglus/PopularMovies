@@ -27,3 +27,5 @@ Replace `0123456789abcdef0123456789abcdef` with your actual API key. The Movie D
 [Android Button OnClick Tutorial](https://gist.github.com/Phonbopit/1544ce31b1749380a248)
 
 [Start new Intent from RecyclerViewAdapter](https://stackoverflow.com/questions/28528009/start-new-intent-from-recyclerviewadapter)
+
+[How to set the height of an item row in GridLayoutManager](https://stackoverflow.com/questions/35221566/how-to-set-the-height-of-an-item-row-in-gridlayoutmanager)
