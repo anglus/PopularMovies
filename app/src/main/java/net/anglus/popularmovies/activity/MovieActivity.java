@@ -26,7 +26,6 @@ import retrofit2.Response;
 public class MovieActivity extends AppCompatActivity {
     private static final String TAG = MovieActivity.class.getSimpleName();
     private static final String API_KEY = BuildConfig.API_KEY;
-    //private TextView mMovieDetails;
     private ImageView mMovieBackdrop;
     private TextView mMovieTitle;
     private ImageView mMoviePoster;
@@ -39,7 +38,6 @@ public class MovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(net.anglus.popularmovies.R.layout.activity_movie);
 
-        //mMovieDetails = (TextView) findViewById(R.id.tv_movie_details);
         mMovieBackdrop = (ImageView) findViewById(R.id.iv_movie_backdrop);
         mMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
         mMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
@@ -53,9 +51,6 @@ public class MovieActivity extends AppCompatActivity {
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
-                String activityTitle = "Movie Detail";
-                MovieActivity.this.setTitle(activityTitle);
-
                 String backdrop = "http://image.tmdb.org/t/p/original" + response.body().getBackdropPath();
                 Context context = getApplicationContext();
                 Picasso.with(context).load(backdrop).into(mMovieBackdrop);
