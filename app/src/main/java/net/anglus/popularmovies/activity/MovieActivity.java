@@ -26,16 +26,26 @@ import retrofit2.Response;
 public class MovieActivity extends AppCompatActivity {
     private static final String TAG = MovieActivity.class.getSimpleName();
     private static final String API_KEY = BuildConfig.API_KEY;
-    private TextView mMovieDetails;
+    //private TextView mMovieDetails;
     private ImageView mMovieBackdrop;
+    private TextView mMovieTitle;
+    private ImageView mMoviePoster;
+    private TextView mMovieDate;
+    private TextView mMovieScore;
+    private TextView mMoviePlot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(net.anglus.popularmovies.R.layout.activity_movie);
 
-        mMovieDetails = (TextView) findViewById(R.id.tv_movie_details);
+        //mMovieDetails = (TextView) findViewById(R.id.tv_movie_details);
         mMovieBackdrop = (ImageView) findViewById(R.id.iv_movie_backdrop);
+        mMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
+        mMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
+        mMovieDate = (TextView) findViewById(R.id.tv_movie_release_date);
+        mMovieScore = (TextView) findViewById(R.id.tv_movie_user_rating);
+        mMoviePlot = (TextView) findViewById(R.id.tv_movie_plot_synopsis);
 
         MovieService service = MovieClient.getRetrofit().create(MovieService.class);
         Call<Movie> call = service.getMovie(MovieAdapter.clickedMovie, API_KEY);
@@ -43,11 +53,19 @@ public class MovieActivity extends AppCompatActivity {
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
+                String activityTitle = "Movie Detail";
+                MovieActivity.this.setTitle(activityTitle);
+
                 String backdrop = "http://image.tmdb.org/t/p/original" + response.body().getBackdropPath();
                 Context context = getApplicationContext();
                 Picasso.with(context).load(backdrop).into(mMovieBackdrop);
 
-                String title = response.body().toString();
+                String movieTitle = response.body().getTitle();
+                String originalTitle = response.body().getOriginalTitle();
+                String fullTitle = movieTitle.equals(originalTitle) ? movieTitle : movieTitle + "\n(" + originalTitle + ")";
+
+                String poster = "http://image.tmdb.org/t/p/w185" + response.body().getPosterPath();
+                Picasso.with(context).load(poster).into(mMoviePoster);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
                 Date date = response.body().getReleaseDate();
@@ -57,9 +75,10 @@ public class MovieActivity extends AppCompatActivity {
 
                 String overview = response.body().getOverview();
 
-                String details = "\n\n" + title + "\n\n" + releaseDate + "\n\n"
-                        + rating + "\n\n" + overview;
-                mMovieDetails.setText(details);
+                mMovieTitle.setText(fullTitle);
+                mMovieDate.setText(releaseDate);
+                mMovieScore.setText(String.valueOf(rating));
+                mMoviePlot.setText(overview);
             }
 
             @Override

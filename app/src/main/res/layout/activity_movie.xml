@@ -6,20 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".activity.MovieActivity"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/iv_movie_backdrop"
         android:layout_width="match_parent"
-        android:layout_height="@android:dimen/thumbnail_height" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#ffffff"
+        android:background="@color/colorAccent"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/iv_movie_poster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:paddingTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_movie_release_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="8dp"
+        android:text=""
+        android:textStyle="italic"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_movie_user_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="8dp"
+        android:text=""
+        android:textStyle="bold"
+        android:textSize="16sp" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_movie_details"
+            android:id="@+id/tv_movie_plot_synopsis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:paddingStart="16dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="8dp"
             android:text=""
             android:textSize="16sp" />
     </ScrollView>
