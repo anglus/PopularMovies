@@ -1,3 +1,18 @@
+/**
+ * Copyright 2018 Matthew Morris
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.anglus.popularmovies.adapter;
 
 import android.content.Context;
@@ -25,6 +40,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * The MovieAdapter class is an adapter between the Main Activity and the movie data.
+ */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private static final String TAG = MovieAdapter.class.getSimpleName();
@@ -34,6 +52,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private int numberItems;
     private int menuItem;
 
+    /**
+     * Constructor for the MovieAdapter class.
+     *
+     * @param numberItems - an int representing the number of items in the recycler view
+     * @param menuItem - an int representing the position of the currently selected menu item in the
+     *                 arry of menu items.
+     */
     public MovieAdapter(int numberItems, int menuItem) {
         this.numberItems = numberItems;
         this.menuItem = menuItem;
@@ -70,11 +95,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView movieItemView;
         List<Movie> movieList;
 
+        /**
+         * The constructor for the MovieViewHolder class. Holds a view of a movie item in the
+         * recycler view list.
+         *
+         * @param itemView - a View representing a particular movie item
+         */
         public MovieViewHolder(final View itemView) {
             super(itemView);
 
             movieItemView = (ImageView) itemView.findViewById(R.id.iv_movie);
 
+            /**
+             * Listen for clicks on the movie item and start the Movie Activity when clicked.
+             */
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,6 +125,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             });
         }
 
+        /**
+         * Binds the data in movie objects to the corresponding positions in the recycler view list.
+         *
+         * @param movieIndex - an int representing a particular movie item's position in the list of
+         *                   movies.
+         */
         void bind (final int movieIndex) {
             MovieService service = MovieClient.getRetrofit().create(MovieService.class);
 

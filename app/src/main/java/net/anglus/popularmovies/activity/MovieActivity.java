@@ -1,3 +1,18 @@
+/**
+ * Copyright 2018 Matthew Morris
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.anglus.popularmovies.activity;
 
 import android.content.Context;
@@ -23,6 +38,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * The MovieActivity class displays details about a particular movie.
+ */
 public class MovieActivity extends AppCompatActivity {
     private static final String TAG = MovieActivity.class.getSimpleName();
     private static final String API_KEY = BuildConfig.API_KEY;
@@ -49,6 +67,12 @@ public class MovieActivity extends AppCompatActivity {
         Call<Movie> call = service.getMovie(MovieAdapter.clickedMovie, API_KEY);
 
         call.enqueue(new Callback<Movie>() {
+            /**
+             * Queries The Movie Database's API for details on a specific movie.
+             *
+             * @param call - an API call (here to TMDb for a specific movie)
+             * @param response - the response to an API call (here a Movie object)
+             */
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 String backdrop = "http://image.tmdb.org/t/p/original" + response.body().getBackdropPath();
